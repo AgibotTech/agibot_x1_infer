@@ -1,6 +1,6 @@
 # Readme
 
-English | [中文](README.zh_CN.md)
+English | [中文](README.zh_CN.md) | [日本語](README.ja_JP.md)
 
 ## Introduction
 
