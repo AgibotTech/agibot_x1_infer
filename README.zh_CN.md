@@ -134,7 +134,7 @@ cd build/
 
 ## 许可协议
 
-本工程提供的代码运行于 [AimRT](https://aimrt.org/) 框架之上。这是研究代码，预计会经常更改，并且不对特定用途的适用性做出任何保证。源代码根据[MULAN](https://spdx.org/licenses/MulanPSL-2.0.html)许可协议发布。
+本工程提供的代码运行于 [AimRT](https://aimrt.org/) 框架之上。这是研究代码，预计会经常更改，并且不对特定用途的适用性做出任何保证。源代码根据 [MULAN](https://spdx.org/licenses/MulanPSL-2.0.html) 许可协议发布。
 
 ## 使用说明
 
