@@ -34,6 +34,7 @@
 #include <future>
 #include <memory>
 #include <string>
+#include <vector>
 #include <thread>
 
 using namespace std::chrono;
