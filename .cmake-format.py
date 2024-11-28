@@ -1,165 +1,154 @@
-# ----------------------------------
-# Options affecting listfile parsing
-# ----------------------------------
-with section("parse"):
+# ----------------------------------------
+# Settings controlling listfile parsing
+# ----------------------------------------
+with section("parse_settings"):
 
-    # Specify structure for custom cmake functions
-    additional_commands = additional_commands = {
+    # Define configuration for custom cmake functions
+    custom_commands = {
         'FetchContent_Declare': {
             'flags': ['OVERRIDE_FIND_PACKAGE'],
-            'kwargs': {
+            'parameters': {
                 'URL': '*',
                 'URL_HASH': '*',
                 'DOWNLOAD_EXTRACT_TIMESTAMP': '*',
-                'GIT_REPOSITORY ': '*',
-                'GIT_TAG ': '*'
+                'GIT_REPO': '*',
+                'GIT_TAG': '*'
             }
         },
-        'add_gtest_target': {
+        'create_gtest_target': {
             'flags': [],
-            'kwargs': {
-                'TEST_TARGET': '*',
-                'TEST_SRC': '*',
-                'INC_DIR': '*'
+            'parameters': {
+                'TEST_NAME': '*',
+                'TEST_SOURCE': '*',
+                'INCLUDE_DIR': '*'
             }
         },
-        'add_protobuf_gencode_target_for_proto_path': {
+        'create_protobuf_target_for_proto_path': {
             'flags': [],
-            'kwargs': {
-                'TARGET_NAME': '*',
-                'PROTO_PATH': '*',
-                'GENCODE_PATH': '*',
-                'DEP_PROTO_TARGETS': '*',
-                'OPTIONS': '*'
+            'parameters': {
+                'TARGET': '*',
+                'PROTO_DIR': '*',
+                'OUTPUT_DIR': '*',
+                'DEPENDENCIES': '*',
+                'EXTRA_OPTIONS': '*'
             }
         },
-        'add_protobuf_gencode_target_for_one_proto_file': {
+        'create_protobuf_target_for_one_proto_file': {
             'flags': [],
-            'kwargs': {
-                'TARGET_NAME': '*',
+            'parameters': {
+                'TARGET': '*',
                 'PROTO_FILE': '*',
-                'GENCODE_PATH': '*',
-                'DEP_PROTO_TARGETS': '*',
-                'OPTIONS': '*'
+                'OUTPUT_DIR': '*',
+                'DEPENDENCIES': '*',
+                'EXTRA_OPTIONS': '*'
             }
         },
-        'add_protobuf_aimrt_rpc_gencode_target_for_proto_files': {
+        'create_protobuf_aimrt_rpc_for_proto_files': {
             'flags': [],
-            'kwargs': {
-                'TARGET_NAME': '*',
+            'parameters': {
+                'TARGET': '*',
                 'PROTO_FILES': '*',
-                'GENCODE_PATH': '*',
-                'DEP_PROTO_TARGETS': '*',
-                'OPTIONS': '*'
+                'OUTPUT_DIR': '*',
+                'DEPENDENCIES': '*',
+                'EXTRA_OPTIONS': '*'
             }
         },
-        'add_ros2_aimrt_rpc_gencode_target_for_one_file': {
+        'create_ros2_aimrt_rpc_for_single_file': {
             'flags': [],
-            'kwargs': {
-                'PACKAGE_NAME': '*',
+            'parameters': {
+                'PACKAGE': '*',
                 'PROTO_FILE': '*',
-                'GENCODE_PATH': '*',
-                'DEP_PROTO_TARGETS': '*',
-                'OPTIONS': '*'
+                'OUTPUT_DIR': '*',
+                'DEPENDENCIES': '*',
+                'EXTRA_OPTIONS': '*'
             }
         }
     }
 
-    # Override configurations per-command where available
-    override_spec = {}
+    # Override settings for specific commands where applicable
+    override_rules = {}
 
-    # Specify variable tags.
-    vartags = []
+    # Define variable tags
+    variable_tags = []
 
-    # Specify property tags.
-    proptags = []
+    # Define property tags
+    property_tags = []
 
-# -----------------------------
-# Options effecting formatting.
-# -----------------------------
-with section("format"):
+# -------------------------------------
+# Settings affecting code formatting
+# -------------------------------------
+with section("formatting"):
 
-    # How wide to allow formatted cmake files
-    line_width = 180
+    # Maximum width for formatted CMake files
+    max_line_length = 180
 
-    # How many spaces to tab for indent
-    tab_size = 2
+    # Number of spaces used for indentation
+    indent_size = 2
 
-    # If an argument group contains more than this many sub-groups (parg or kwarg
-    # groups) then force it to a vertical layout.
-    max_subgroups_hwrap = 2
+    # Threshold for horizontal wrapping of sub-groups within argument groups
+    max_subgroups_wrap = 2
 
-    # If a positional argument group contains more than this many arguments, then
-    # force it to a vertical layout.
-    max_pargs_hwrap = 6
+    # Threshold for horizontal wrapping of positional arguments
+    max_arguments_wrap = 6
 
-    # If a cmdline positional group consumes more than this many lines without
-    # nesting, then invalidate the layout (and nest)
-    max_rows_cmdline = 2
+    # Limit of lines for a command-line argument group before forcing nesting
+    max_cmdline_rows = 2
 
-    # If true, separate flow control names from their parentheses with a space
-    separate_ctrl_name_with_space = False
+    # Whether to add space between control names and parentheses
+    add_space_after_ctrl = False
 
-    # If true, separate function names from parentheses with a space
-    separate_fn_name_with_space = False
+    # Whether to add space between function names and parentheses
+    add_space_after_fn = False
 
-    # If a statement is wrapped to more than one line, than dangle the closing
-    # parenthesis on its own line.
-    dangle_parens = False
+    # Dangle closing parentheses on a new line when wrapping
+    dangle_closing_paren = False
 
-    # A list of command names which should always be wrapped
-    always_wrap = ['target_link_libraries/PUBLIC/PargGroupNode[0]',
-                   'target_link_libraries/PRIVATE/PargGroupNode[0]',
-                   'target_link_libraries/INTERFACE/PargGroupNode[0]',
-                   'target_include_directories/PUBLIC/PargGroupNode[0]',
-                   'target_include_directories/PRIVATE/PargGroupNode[0]',
-                   'target_include_directories/INTERFACE/PargGroupNode[0]',
-                   'add_custom_target/DEPENDS/PargGroupNode[0]',
-                   'add_protobuf_gencode_target_for_proto_path/DEP_PROTO_TARGETS/PargGroupNode[0]',
-                   'add_protobuf_gencode_target_for_one_proto_file/DEP_PROTO_TARGETS/PargGroupNode[0]',
-                   'add_protobuf_aimrt_rpc_gencode_target_for_proto_files/DEP_PROTO_TARGETS/PargGroupNode[0]',
-                   'add_ros2_aimrt_rpc_gencode_target_for_one_file/DEP_PROTO_TARGETS/PargGroupNode[0]']
+    # Commands that should always trigger wrapping
+    wrap_always = [
+        'target_link_libraries/PUBLIC/Arguments[0]',
+        'target_link_libraries/PRIVATE/Arguments[0]',
+        'target_link_libraries/INTERFACE/Arguments[0]',
+        'target_include_directories/PUBLIC/Arguments[0]',
+        'target_include_directories/PRIVATE/Arguments[0]',
+        'target_include_directories/INTERFACE/Arguments[0]',
+        'add_custom_target/DEPENDENCIES/Arguments[0]',
+        'create_protobuf_target_for_proto_path/DEPENDENCIES/Arguments[0]',
+        'create_protobuf_target_for_one_proto_file/DEPENDENCIES/Arguments[0]',
+        'create_protobuf_aimrt_rpc_for_proto_files/DEPENDENCIES/Arguments[0]',
+        'create_ros2_aimrt_rpc_for_single_file/DEPENDENCIES/Arguments[0]'
+    ]
 
-# ------------------------------------------------
-# Options affecting comment reflow and formatting.
-# ------------------------------------------------
-with section("markup"):
+# -------------------------------------------------
+# Settings for comment formatting and reflow
+# -------------------------------------------------
+with section("comment_settings"):
 
-    # What character to use for bulleted lists
-    bullet_char = '*'
+    # Character used for bullet points in lists
+    bullet_character = '*'
 
-    # What character to use as punctuation after numerals in an enumerated list
-    enum_char = '.'
+    # Character used after numerals in enumerated lists
+    numeral_punctuation = '.'
 
-    # If comment markup is enabled, don't reflow the first comment block in each
-    # listfile. Use this to preserve formatting of your copyright/license
-    # statements.
-    first_comment_is_literal = False
+    # Keep formatting of the first comment block (e.g., for licenses)
+    keep_first_comment_literal = False
 
-    # If comment markup is enabled, don't reflow any comment block which matches
-    # this (regex) pattern. Default is `None` (disabled).
-    literal_comment_pattern = None
+    # Regex pattern to match comments that should not be reformatted
+    ignore_comment_pattern = None
 
-    # Regular expression to match preformat fences in comments default=
-    # ``r'^\s*([`~]{3}[`~]*)(.*)$'``
-    fence_pattern = '^\\s*([`~]{3}[`~]*)(.*)$'
+    # Regex pattern for matching preformatted code fences
+    preformat_fence_regex = r'^\s*([`~]{3}[`~]*)(.*)$'
 
-    # Regular expression to match rulers in comments default=
-    # ``r'^\s*[^\w\s]{3}.*[^\w\s]{3}$'``
-    ruler_pattern = '^\\s*[^\\w\\s]{3}.*[^\\w\\s]{3}$'
+    # Regex pattern for matching ruler lines
+    ruler_line_regex = r'^\s*[^\\w\\s]{3}.*[^\\w\\s]{3}$'
 
-    # If a comment line matches starts with this pattern then it is explicitly a
-    # trailing comment for the preceeding argument. Default is '#<'
-    explicit_trailing_pattern = '#<'
+    # Pattern to match trailing comments, defaulting to '#<'
+    trailing_comment_pattern = '#<'
 
-    # If a comment line starts with at least this many consecutive hash
-    # characters, then don't lstrip() them off. This allows for lazy hash rulers
-    # where the first hash char is not separated by space
-    hashruler_min_length = 10
+    # Minimum length of consecutive hash characters to preserve in comment rulers
+    min_hashruler_length = 10
 
-    # If true, then insert a space between the first hash char and remaining hash
-    # chars in a hash ruler, and normalize its length to fill the column
-    canonicalize_hashrulers = True
+    # Normalize hash ruler lengths and add space after the first hash
+    normalize_hashrulers = True
 
-    # enable comment markup parsing and reflow
-    enable_markup = False
+    # Enable reflow and markup processing for comments
+    enable_comment_markup = False
