@@ -35,6 +35,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <vector>
 
 using namespace std::chrono;
 
